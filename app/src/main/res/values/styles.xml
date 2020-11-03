@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--  -->
+    <style name="ListBlock">
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:padding">@dimen/default_padding</item>
+    </style>
+
+    <!--  -->
+    <style name="ListBlockWithFrame" parent="ListBlock">
+        <item name="android:background">@drawable/simple_block</item>
+    </style>
 </resources>
