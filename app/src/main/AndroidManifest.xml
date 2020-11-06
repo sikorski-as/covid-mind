@@ -3,6 +3,8 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.covidmind">
 
+    <uses-permission android:name="android.gms.permission.ACTIVITY_RECOGNITION"/>
+
     <dist:module dist:instant="true" />
 
     <application

@@ -7,4 +7,5 @@
     <string name="good_mood_label">Good</string>
     <string name="bad_mood_label">Bad</string>
     <string name="steps_label">Steps today: 0</string>
+    <string name="description_steps_icon">running man icon</string>
 </resources>
