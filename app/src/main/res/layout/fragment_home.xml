@@ -19,7 +19,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
+                app:srcCompat="@drawable/ic_directions_walk_black_24dp"
+                android:contentDescription="@string/description_steps_icon" />
 
             <TextView
                 android:id="@+id/steps_text"
@@ -34,6 +35,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/refresh_steps_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="39dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
         </LinearLayout>
 
         <LinearLayout
