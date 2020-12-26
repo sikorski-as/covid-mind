@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.covidmind.R
@@ -31,36 +33,24 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    private fun onRefreshStepsButtonClicked(){
+    private fun tryToAccessStepsFromGoogleFit() {
         val account = GoogleSignIn.getAccountForExtension(context!!, FITNESS_OPTIONS)
 
         if (!GoogleSignIn.hasPermissions(account, FITNESS_OPTIONS)) {
             Log.i(TAG, "[CM] Asking for permission")
             GoogleSignIn.requestPermissions(
-                this, // your activity
+                this,
                 GOOGLE_FIT_STEPS_PERMISSIONS_REQUEST_CODE, // e.g. 1
                 account,
-                FITNESS_OPTIONS)
+                FITNESS_OPTIONS
+            )
         } else {
             Log.i(TAG, "[CM] Already has permissions")
             accessStepsFromGoogleFit()
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.i(TAG, "[CM] Got permission answer")
-        if (requestCode == GOOGLE_FIT_STEPS_PERMISSIONS_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Log.i(TAG, "[CM] Got permission answer: YES")
-                accessStepsFromGoogleFit()
-            }
-            else {
-                Log.i(TAG, "[CM] Got permission answer: NO")
-            }
-        }
-    }
-
-    private fun accessStepsFromGoogleFit(){
+    private fun accessStepsFromGoogleFit() {
         Log.i(TAG, "[CM] Accessing steps from Google Fit")
 
         val account = GoogleSignIn.getAccountForExtension(context!!, FITNESS_OPTIONS)
@@ -73,7 +63,9 @@ class HomeFragment : Fragment() {
                 else
                     result.dataPoints[0].getValue(Field.FIELD_STEPS).asInt()
 
-                view?.findViewById<TextView>(R.id.steps_text)?.text = "Steps: $totalSteps"
+                view?.findViewById<TextView>(R.id.steps_counter)?.text = totalSteps.toString()
+                view?.findViewById<Button>(R.id.steps_button)?.text =
+                    resources.getString(R.string.google_fit_powered_by)
 
                 Log.i(TAG, "[CM] It went fine, number of steps: $totalSteps")
             }
@@ -82,11 +74,25 @@ class HomeFragment : Fragment() {
             }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.i(TAG, "[CM] Got permission answer")
+        if (requestCode == GOOGLE_FIT_STEPS_PERMISSIONS_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Log.i(TAG, "[CM] Got permission answer: YES")
+                accessStepsFromGoogleFit()
+            } else {
+                Log.i(TAG, "[CM] Got permission answer: NO")
+                Toast.makeText(context, R.string.permission_not_granted, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<ImageButton>(R.id.refresh_steps_button).setOnClickListener{
-            onRefreshStepsButtonClicked()
+        view.findViewById<AppCompatButton>(R.id.steps_button).setOnClickListener {
+            tryToAccessStepsFromGoogleFit()
         }
+        tryToAccessStepsFromGoogleFit()
     }
 
     override fun onCreateView(

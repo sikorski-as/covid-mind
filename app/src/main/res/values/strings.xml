@@ -3,9 +3,15 @@
     <string name="title_home">Home</string>
     <string name="title_activities">Activities</string>
     <string name="title_settings">Settings</string>
-    <string name="mood_prompt_text">How are you doing today?</string>
-    <string name="good_mood_label">Good</string>
-    <string name="bad_mood_label">Bad</string>
-    <string name="steps_label">Steps today: 0</string>
+
+    <string name="mood_label">Mood</string>
+    <string name="mood_prompt_text">How are you today?</string>
+
+    <string name="steps_label">Steps</string>
+    <string name="steps_counter_placeholder">\?\?</string>
+    <string name="google_fit_prompt_title">Connect to Google Fit</string>
+    <string name="google_fit_powered_by">powered by Google Fit</string>
+
     <string name="description_steps_icon">running man icon</string>
+    <string name="permission_not_granted">Permission not granted to use this feature</string>
 </resources>

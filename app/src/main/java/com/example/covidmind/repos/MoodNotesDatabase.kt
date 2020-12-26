@@ -11,30 +11,35 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import androidx.room.Update
-import java.time.Instant
+import java.util.*
+
 
 enum class MoodType {
     UNKNOWN, VERY_BAD, BAD, NORMAL, GOOD, VERY_GOOD
 }
 
+
 @Entity(tableName = "moodnotes")
 data class MoodNote(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val moodValue: Int,
-    val timestamp: Instant
+
+    val timestamp: Date
 )
 
 @Dao
 interface MoodNoteDao {
     @Query("SELECT * FROM moodnotes")
-    suspend fun getAll(): LiveData<List<MoodNote>> // suspend runs a background task to fetch data
+    suspend fun getAll(): List<MoodNote> // suspend runs a background task to fetch data
 
     @Query("SELECT * from moodnotes ORDER BY timestamp DESC LIMIT :limit")
-    suspend fun getLatestNotes(limit: Int = 1): LiveData<List<MoodNote>>
+    suspend fun getLatestNotes(limit: Int = 1): List<MoodNote>
 
     @Query("SELECT * FROM moodnotes WHERE id IN (:moodNotesIds)")
-    suspend fun loadAllByIds(moodNotesIds: IntArray): LiveData<List<MoodNote>>
+    suspend fun loadAllByIds(moodNotesIds: IntArray): List<MoodNote>
 
     @Insert
     suspend fun insert(moodNote: MoodNote)
@@ -46,7 +51,20 @@ interface MoodNoteDao {
     suspend fun delete(moodNote: MoodNote)
 }
 
+class DateConverter {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+}
+
 @Database(entities = [MoodNote::class], version = 1)
+@TypeConverters(DateConverter::class)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun moodNotesDao(): MoodNoteDao
