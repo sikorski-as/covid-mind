@@ -1,6 +1,17 @@
 package com.example.covidmind.repos
 
-import androidx.room.*
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.Update
 import java.time.Instant
 
 enum class MoodType {
@@ -9,30 +20,54 @@ enum class MoodType {
 
 @Entity(tableName = "moodnotes")
 data class MoodNote(
-    @PrimaryKey val id: Int,
-    val moodType: MoodType,
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val moodValue: Int,
     val timestamp: Instant
 )
 
 @Dao
 interface MoodNoteDao {
     @Query("SELECT * FROM moodnotes")
-    fun getAll(): List<MoodNote>
+    suspend fun getAll(): LiveData<List<MoodNote>> // suspend runs a background task to fetch data
 
     @Query("SELECT * from moodnotes ORDER BY timestamp DESC LIMIT :limit")
-    fun getLatestNotes(limit: Int = 1)
+    suspend fun getLatestNotes(limit: Int = 1): LiveData<List<MoodNote>>
 
     @Query("SELECT * FROM moodnotes WHERE id IN (:moodNotesIds)")
-    fun loadAllByIds(moodNotesIds: IntArray): List<MoodNote>
+    suspend fun loadAllByIds(moodNotesIds: IntArray): LiveData<List<MoodNote>>
 
     @Insert
-    fun insert(moodNote: MoodNote)
+    suspend fun insert(moodNote: MoodNote)
+
+    @Update
+    suspend fun update(moodNote: MoodNote)
 
     @Delete
-    fun delete(moodNote: MoodNote)
+    suspend fun delete(moodNote: MoodNote)
 }
 
 @Database(entities = [MoodNote::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+abstract class LocalDatabase : RoomDatabase() {
+
     abstract fun moodNotesDao(): MoodNoteDao
+
+    companion object {
+        @Volatile // changes significant to other threads (update immediately!)
+        private var instance: LocalDatabase? = null
+
+        fun getInstance(context: Context): LocalDatabase {
+            return instance ?: synchronized(this) {
+                instance ?: buildDatabase(context).also { instance = it }
+            }
+        }
+
+        private fun buildDatabase(context: Context): LocalDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                LocalDatabase::class.java, "covid_mind.db"
+            )
+                .fallbackToDestructiveMigration() // this might be replaced when migrating to production
+                .build()
+        }
+    }
 }
