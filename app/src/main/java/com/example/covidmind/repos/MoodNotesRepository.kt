@@ -1,7 +1,15 @@
 package com.example.covidmind.repos
 
-import android.app.Application
+import androidx.lifecycle.LiveData
+import java.time.LocalDate
+import javax.inject.Inject
 
-class MoodNotesRepository(application: Application) {
-    var moodNotesDao: MoodNoteDao = LocalDatabase.getInstance(application).moodNotesDao()
+class MoodNotesRepository @Inject constructor(localDatabase: LocalDatabase) {
+    private var moodNotesDao: MoodNoteDao = localDatabase.moodNotesDao()
+
+    fun checkIfNotedToday(): LiveData<Boolean> = moodNotesDao.checkIfNotedAt(LocalDate.now())
+
+    suspend fun insertOrReplace(moodNote: MoodNote) {
+        moodNotesDao.insertOrReplaceOnDateConflict(moodNote)
+    }
 }

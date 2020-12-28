@@ -7,7 +7,7 @@
         android:bottomLeftRadius="3dp">
     </corners>
     <stroke
-        android:width="3dp"
+        android:width="2dp"
         android:color="#999999">
     </stroke>
     <solid

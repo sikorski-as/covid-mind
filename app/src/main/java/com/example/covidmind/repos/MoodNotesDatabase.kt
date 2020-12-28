@@ -1,20 +1,9 @@
 package com.example.covidmind.repos
 
-import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Delete
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
-import androidx.room.Update
-import java.util.*
+import androidx.room.*
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.time.LocalDate
 
 
 enum class MoodType {
@@ -22,13 +11,17 @@ enum class MoodType {
 }
 
 
-@Entity(tableName = "moodnotes")
-data class MoodNote(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    val moodValue: Int,
-
-    val timestamp: Date
+@Entity(
+    tableName = "moodnotes",
+    indices = [Index(value = ["timestamp"], unique = true)]
 )
+data class MoodNote(
+    val moodValue: Int,
+    val timestamp: LocalDate
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}
 
 @Dao
 interface MoodNoteDao {
@@ -41,8 +34,11 @@ interface MoodNoteDao {
     @Query("SELECT * FROM moodnotes WHERE id IN (:moodNotesIds)")
     suspend fun loadAllByIds(moodNotesIds: IntArray): List<MoodNote>
 
-    @Insert
-    suspend fun insert(moodNote: MoodNote)
+    @Query("SELECT count(*) FROM moodnotes WHERE timestamp = :timestamp limit 1")
+    fun checkIfNotedAt(timestamp: LocalDate): LiveData<Boolean>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrReplaceOnDateConflict(moodNote: MoodNote)
 
     @Update
     suspend fun update(moodNote: MoodNote)
@@ -53,39 +49,18 @@ interface MoodNoteDao {
 
 class DateConverter {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun timestampToLocalDate(timestamp: String): LocalDate {
+        return timestamp.let { LocalDate.parse(timestamp) }
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
+    fun localDateToTimestamp(date: LocalDate): String {
+        return date.toString()
     }
 }
 
 @Database(entities = [MoodNote::class], version = 1)
 @TypeConverters(DateConverter::class)
 abstract class LocalDatabase : RoomDatabase() {
-
     abstract fun moodNotesDao(): MoodNoteDao
-
-    companion object {
-        @Volatile // changes significant to other threads (update immediately!)
-        private var instance: LocalDatabase? = null
-
-        fun getInstance(context: Context): LocalDatabase {
-            return instance ?: synchronized(this) {
-                instance ?: buildDatabase(context).also { instance = it }
-            }
-        }
-
-        private fun buildDatabase(context: Context): LocalDatabase {
-            return Room.databaseBuilder(
-                context.applicationContext,
-                LocalDatabase::class.java, "covid_mind.db"
-            )
-                .fallbackToDestructiveMigration() // this might be replaced when migrating to production
-                .build()
-        }
-    }
 }

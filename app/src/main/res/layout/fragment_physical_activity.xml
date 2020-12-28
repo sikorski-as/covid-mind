@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.physical_activity.PhysicalActivityFragment">
 
-
     <LinearLayout
         style="@style/ListBlockWithFrame"
         android:layout_width="match_parent"
@@ -48,6 +47,14 @@
             android:layout_height="wrap_content"
             android:text="@string/google_fit_prompt_title"
             android:layout_weight="0.1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/steps_hint"
+            android:textSize="@dimen/hint_size"
+            android:textColor="@color/colorHint"/>
 
     </LinearLayout>
 
