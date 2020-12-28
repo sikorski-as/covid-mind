@@ -11,6 +11,8 @@
     <string name="steps_counter_placeholder">\?\?</string>
     <string name="google_fit_prompt_title">Connect to Google Fit</string>
     <string name="google_fit_powered_by">powered by Google Fit</string>
+    <string name="failed_to_fetch_steps">Failed to fetch steps</string>
+    <string name="google_account_not_chosen">Google account is required</string>
 
     <string name="description_steps_icon">running man icon</string>
     <string name="permission_not_granted">Permission not granted to use this feature</string>
