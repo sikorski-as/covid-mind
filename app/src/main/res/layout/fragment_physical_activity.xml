@@ -33,6 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="2"
             android:text="@string/steps_counter_placeholder"
+            android:textColor="@color/colorBlack"
             android:textAlignment="center"
             android:textSize="@dimen/big_text_size"
             android:textStyle="bold"

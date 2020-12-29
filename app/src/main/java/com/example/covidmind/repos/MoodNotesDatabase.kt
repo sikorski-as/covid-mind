@@ -2,40 +2,47 @@ package com.example.covidmind.repos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.time.LocalDate
-
-
-enum class MoodType {
-    UNKNOWN, VERY_BAD, BAD, NORMAL, GOOD, VERY_GOOD
-}
+import java.util.*
 
 
 @Entity(
-    tableName = "moodnotes",
-    indices = [Index(value = ["timestamp"], unique = true)]
+    tableName = "moodnotes"
 )
 data class MoodNote(
     val moodValue: Int,
-    val timestamp: LocalDate
+    val timestamp: Date = Date(System.currentTimeMillis())
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+
+    companion object {
+        const val MOOD_VERY_BAD = 1
+        const val MOOD_BAD = 2
+        const val MOOD_NEUTRAL = 3
+        const val MOOD_GOOD = 4
+        const val MOOD_VERY_GOOD = 5
+    }
 }
 
 @Dao
 interface MoodNoteDao {
-    @Query("SELECT * FROM moodnotes")
-    suspend fun getAll(): List<MoodNote> // suspend runs a background task to fetch data
+    @Query("SELECT * FROM moodnotes ORDER BY timestamp DESC")
+    fun getAll(): LiveData<List<MoodNote>> // suspend runs a background task to fetch data
 
     @Query("SELECT * from moodnotes ORDER BY timestamp DESC LIMIT :limit")
-    suspend fun getLatestNotes(limit: Int = 1): List<MoodNote>
+    fun getLatestNotes(limit: Int = 1): List<MoodNote>
+
+    @Query("SELECT * from moodnotes WHERE timestamp BETWEEN :start AND :end ORDER BY timestamp DESC")
+    fun loadBetweenSorted(start: Date, end: Date): LiveData<List<MoodNote>>
+
+    @Query("SELECT * from moodnotes WHERE timestamp BETWEEN :start AND :end ORDER BY timestamp DESC LIMIT :limit")
+    fun loadBetweenSortedWithLimit(start: Date, end: Date, limit: Int): LiveData<List<MoodNote>>
 
     @Query("SELECT * FROM moodnotes WHERE id IN (:moodNotesIds)")
-    suspend fun loadAllByIds(moodNotesIds: IntArray): List<MoodNote>
+    fun loadAllByIds(moodNotesIds: IntArray): List<MoodNote>
 
     @Query("SELECT count(*) FROM moodnotes WHERE timestamp = :timestamp limit 1")
-    fun checkIfNotedAt(timestamp: LocalDate): LiveData<Boolean>
+    fun checkIfNotedAt(timestamp: Date): LiveData<Boolean>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplaceOnDateConflict(moodNote: MoodNote)
@@ -49,13 +56,13 @@ interface MoodNoteDao {
 
 class DateConverter {
     @TypeConverter
-    fun timestampToLocalDate(timestamp: String): LocalDate {
-        return timestamp.let { LocalDate.parse(timestamp) }
+    fun timestampToDate(value: Long?): Date? {
+        return value?.let { Date(it) }
     }
 
     @TypeConverter
-    fun localDateToTimestamp(date: LocalDate): String {
-        return date.toString()
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time?.toLong()
     }
 }
 
