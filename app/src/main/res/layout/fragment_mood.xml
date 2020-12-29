@@ -9,86 +9,19 @@
     <LinearLayout style="@style/ListBlockWithFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mood_label"
+            android:id="@+id/mood_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_weight="2"
-            android:text="@string/mood_label"
+            android:text="@string/mood_title_label"
             android:textAlignment="center"
-            android:textSize="@dimen/default_text_size"
+            android:textSize="@dimen/text_size_heading3"
             android:textStyle="bold"
             />
-
-<!--        <TextView-->
-<!--            android:id="@+id/mood_prompt_text"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_weight="2"-->
-<!--            android:text="@string/mood_prompt_text"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textSize="@dimen/big_text_size"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/mood_very_bad"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                app:srcCompat="@drawable/ic_sentiment_very_dissatisfied_black_24dp" />-->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/mood_bad"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                app:srcCompat="@drawable/ic_sentiment_dissatisfied_black_24dp" />-->
-<!--            -->
-<!--            -->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/mood_good"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                app:srcCompat="@drawable/ic_sentiment_satisfied_black_24dp" />-->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/mood_very_good"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                app:srcCompat="@drawable/ic_sentiment_very_satisfied_black_24dp" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/mood_neutral"-->
-<!--            style="?android:attr/borderlessButtonStyle"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:minWidth="40dp"-->
-<!--            android:minHeight="40dp"-->
-<!--            android:layout_weight="1"-->
-<!--            app:srcCompat="@drawable/ic_sentiment_neutral_black_24dp" />-->
 
         <ImageView
             android:id="@+id/mood_image"
@@ -98,20 +31,37 @@
             app:srcCompat="@drawable/ic_sentiment_satisfied_black_24dp"
             />
 
+        <TextView
+            android:id="@+id/mood_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/mood_visit_activities"
+            android:textSize="@dimen/text_size_heading5"
+            android:textStyle="bold"
+            />
+
+        <fragment
+            android:id="@+id/mood_noting_fragment"
+            android:name="com.example.covidmind.ui.moodnoting.MoodNotingFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/switch_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?android:attr/borderlessButtonStyle"
             android:layout_weight="1"
-            android:text="@string/mood_button"/>
+            android:text="@string/mood_button"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/mood_hint"
-            android:textSize="@dimen/hint_size"
+            android:textSize="@dimen/text_size_hint"
             android:textColor="@color/colorHint"/>
 
     </LinearLayout>
