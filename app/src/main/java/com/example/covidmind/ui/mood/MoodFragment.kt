@@ -30,10 +30,6 @@ class MoodFragment : Fragment() {
         viewModel.averageMood.observe(viewLifecycleOwner, Observer {
             updateMoodImage(it)
         })
-
-        view?.findViewById<Button>(R.id.switch_button)?.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.navigation_moodnotes)
-        }
     }
 
     private fun updateMoodImage(averageMood: Double?) {

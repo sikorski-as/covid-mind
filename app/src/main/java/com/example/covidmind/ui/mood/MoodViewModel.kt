@@ -9,12 +9,6 @@ import kotlinx.coroutines.launch
 class MoodViewModel @ViewModelInject constructor(
     private val moodNotesRepository: MoodNotesRepository
 ) : ViewModel() {
-    fun insertOrReplace(moodNote: MoodNote){
-        viewModelScope.launch {
-            moodNotesRepository.insertOrReplace(moodNote)
-        }
-    }
-
     private val latestMoodNotes: LiveData<List<MoodNote>> = moodNotesRepository.getAllNotes()
     val averageMood: LiveData<Double?> = Transformations.switchMap(latestMoodNotes) {
         moodNotes ->

@@ -28,7 +28,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_sentiment_satisfied_black_24dp"
+            app:srcCompat="@drawable/ic_sentiment_neutral_black_24dp"
             />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/mood_visit_activities"
+            android:text="@string/mood_unknown_description"
             android:textSize="@dimen/text_size_heading5"
             android:textStyle="bold"
             />
@@ -46,15 +46,6 @@
             android:name="com.example.covidmind.ui.moodnoting.MoodNotingFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/switch_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_weight="1"
-            android:text="@string/mood_button"
-            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
