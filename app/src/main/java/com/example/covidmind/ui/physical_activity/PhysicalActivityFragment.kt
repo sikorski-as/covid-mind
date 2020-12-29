@@ -109,13 +109,13 @@ class PhysicalActivityFragment : Fragment() {
 
         if (value == null) {
             stepsText?.text = resources.getString(R.string.steps_counter_placeholder)
-            stepsButton?.text = resources.getString(R.string.google_fit_prompt_title)
+            stepsButton?.text = resources.getString(R.string.steps_button_connect)
             stepsButton?.setOnClickListener {
                 tryToAccessStepsFromGoogleFit()
             }
         } else {
             stepsText?.text = value.toString()
-            stepsButton?.text = resources.getString(R.string.google_fit_powered_by)
+            stepsButton?.text = resources.getString(R.string.steps_button_connected)
             stepsButton?.setOnClickListener {}
         }
     }

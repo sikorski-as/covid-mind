@@ -24,19 +24,19 @@
             android:textStyle="bold"
             />
 
-        <TextView
-            android:id="@+id/mood_prompt_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="2"
-            android:text="@string/mood_prompt_text"
-            android:textAlignment="center"
-            android:textSize="@dimen/big_text_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/mood_prompt_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_weight="2"-->
+<!--            android:text="@string/mood_prompt_text"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="@dimen/big_text_size"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,5 +84,22 @@
                 app:srcCompat="@drawable/ic_sentiment_very_satisfied_black_24dp" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/switch_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_weight="1"
+            android:text="@string/mood_button"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/mood_hint"
+            android:textSize="@dimen/hint_size"
+            android:textColor="@color/colorHint"/>
+
     </LinearLayout>
 </FrameLayout>

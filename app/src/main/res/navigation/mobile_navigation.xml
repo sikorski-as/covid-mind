@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_moodnotes"
+        android:name="com.example.covidmind.ui.moodnotes.MoodNotesFragment"
+        android:label="@string/title_moodnotes"
+        tools:layout="@layout/fragment_moodnotes" />
+
+    <fragment
         android:id="@+id/navigation_activities"
         android:name="com.example.covidmind.ui.dashboard.ActivitiesFragment"
         android:label="@string/title_activities"
@@ -19,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.covidmind.ui.notifications.SettingsFragment"
+        android:name="com.example.covidmind.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
