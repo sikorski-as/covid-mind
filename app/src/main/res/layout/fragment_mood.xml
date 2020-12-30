@@ -1,59 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/default_padding"
     tools:context=".ui.mood.MoodFragment">
 
-    <LinearLayout style="@style/ListBlockWithFrame"
+    <TextView
+        android:id="@+id/mood_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="2"
+        android:text="@string/mood_title_label"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_heading3"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/mood_image"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_sentiment_neutral_black_24dp" />
+
+    <TextView
+        android:id="@+id/mood_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/mood_unknown_description"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_heading5"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/mood_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="2"
-            android:text="@string/mood_title_label"
-            android:textAlignment="center"
-            android:textSize="@dimen/text_size_heading3"
-            android:textStyle="bold"
-            />
+    <fragment
+        android:id="@+id/mood_noting_fragment"
+        android:name="com.example.covidmind.ui.moodnoting.MoodNotingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/mood_image"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_sentiment_neutral_black_24dp"
-            />
-
-        <TextView
-            android:id="@+id/mood_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/mood_unknown_description"
-            android:textSize="@dimen/text_size_heading5"
-            android:textStyle="bold"
-            />
-
-        <fragment
-            android:id="@+id/mood_noting_fragment"
-            android:name="com.example.covidmind.ui.moodnoting.MoodNotingFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/mood_hint"
-            android:textSize="@dimen/text_size_hint"
-            android:textColor="@color/colorHint"/>
-
-    </LinearLayout>
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mood_hint"
+        android:textAlignment="center"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/text_size_hint" />
+</LinearLayout>

@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/default_margin"
     android:layout_marginTop="@dimen/default_margin"
-    android:layout_marginRight="@dimen/default_margin">
+    android:layout_marginRight="@dimen/default_margin"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"

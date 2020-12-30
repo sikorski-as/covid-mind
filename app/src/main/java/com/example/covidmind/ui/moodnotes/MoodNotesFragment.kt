@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,6 +37,17 @@ class MoodNotesFragment : Fragment() {
             it.adapter = moodNoteAdapter
         }
         viewModel.allMoodNotes.observe(viewLifecycleOwner, Observer { newMoodNotes ->
+            if (newMoodNotes.isEmpty()) {
+                view.findViewById<TextView>(R.id.moodnotes_no_data_label)
+                    .visibility = View.VISIBLE
+                view.findViewById<RecyclerView>(R.id.moodnotes_recycler_view)
+                    .visibility = View.GONE
+            } else {
+                view.findViewById<TextView>(R.id.moodnotes_no_data_label)
+                    .visibility = View.GONE
+                view.findViewById<RecyclerView>(R.id.moodnotes_recycler_view)
+                    .visibility = View.VISIBLE
+            }
             moodNoteAdapter.moodNotes = newMoodNotes.toMutableList()
         })
     }

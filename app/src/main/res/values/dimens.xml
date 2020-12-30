@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="default_margin">20dp</dimen>
     <dimen name="default_padding">20dp</dimen>
+    <dimen name="default_cardview_elevation">2dp</dimen>
+    <dimen name="default_cardview_translation">2dp</dimen>
 
     <dimen name="text_size_heading1">35sp</dimen>
     <dimen name="text_size_heading2">30sp</dimen>

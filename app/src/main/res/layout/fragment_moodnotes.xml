@@ -5,10 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.moodnotes.MoodNotesFragment">
 
+    <TextView
+        android:id="@+id/moodnotes_no_data_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/moodnotes_no_data"
+        android:textAlignment="center"
+        android:padding="@dimen/default_padding"
+        android:layout_margin="@dimen/default_margin"
+        android:visibility="visible"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moodnotes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/moodnote_item" />
+        tools:listitem="@layout/moodnote_item"
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

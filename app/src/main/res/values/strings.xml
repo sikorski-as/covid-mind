@@ -1,6 +1,7 @@
 <resources>
     <!--  main  -->
-    <string name="app_name">Covid Mind</string>
+    <string name="app_name">Pandemic Mind</string>
+    <string name="app_subtitle">To make yourself better during pandemic.</string>
     <string name="title_home">Status</string>
     <string name="title_moodnotes">Mood notes</string>
     <string name="title_activities">Activities</string>
@@ -49,4 +50,5 @@
     <!-- moodnotes list fragment -->
     <string name="moodnotes_date_placeholder">unknown date</string>
     <string name="moodnotes_removed_toast">Mood note removed!</string>
+    <string name="moodnotes_no_data">There isn\'t any mood note to show.</string>
 </resources>
