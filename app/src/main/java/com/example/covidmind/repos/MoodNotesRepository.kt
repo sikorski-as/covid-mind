@@ -1,7 +1,6 @@
 package com.example.covidmind.repos
 
 import androidx.lifecycle.LiveData
-import java.util.*
 import javax.inject.Inject
 
 class MoodNotesRepository @Inject constructor(localDatabase: LocalDatabase) {

@@ -1,20 +1,22 @@
 package com.example.covidmind.ui.moodnotes
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.ContentValues
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.covidmind.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MoodNotesFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MoodNotesFragment()
-    }
-
-    private lateinit var viewModel: MoodNotesViewModel
+    private val viewModel: MoodNotesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +25,16 @@ class MoodNotesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_moodnotes, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MoodNotesViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val moodNoteAdapter = MoodNoteAdapter()
+        view.findViewById<RecyclerView>(R.id.moodnotes_recycler_view)?.also {
+            it.layoutManager = LinearLayoutManager(this.context)
+            it.setHasFixedSize(true)
+            it.adapter = moodNoteAdapter
+        }
+        viewModel.allMoodNotes.observe(viewLifecycleOwner, Observer { newMoodNotes ->
+            moodNoteAdapter.moodNotes = newMoodNotes
+        })
     }
-
 }
