@@ -1,9 +1,11 @@
 package com.example.covidmind.repos
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-class SettingsRepository(context: Context) {
+class PreferencesRepository @Inject constructor(@ApplicationContext context : Context) {
     private val preferences =
         context.getSharedPreferences("CovidMindSettings", Context.MODE_PRIVATE)
 

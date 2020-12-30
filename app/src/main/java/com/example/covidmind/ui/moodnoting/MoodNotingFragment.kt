@@ -21,7 +21,13 @@ class MoodNotingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_mood_noting, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_mood_noting, container, false)
+        rootView.findViewById<ImageButton>(R.id.mood_very_bad)?.setOnClickListener(noteMoodCallback(1))
+        rootView.findViewById<ImageButton>(R.id.mood_bad)?.setOnClickListener(noteMoodCallback(2))
+        rootView.findViewById<ImageButton>(R.id.mood_neutral)?.setOnClickListener(noteMoodCallback(3))
+        rootView.findViewById<ImageButton>(R.id.mood_good)?.setOnClickListener(noteMoodCallback(4))
+        rootView.findViewById<ImageButton>(R.id.mood_very_good)?.setOnClickListener(noteMoodCallback(5))
+        return rootView
     }
 
     private fun noteMoodCallback(value: Int): View.OnClickListener {
@@ -29,15 +35,6 @@ class MoodNotingFragment : Fragment() {
             viewModel.insertOrReplace(MoodNote(value))
             Toast.makeText(context, R.string.moodnoting_noted_toast, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        view?.findViewById<ImageButton>(R.id.mood_very_bad)?.setOnClickListener(noteMoodCallback(1))
-        view?.findViewById<ImageButton>(R.id.mood_bad)?.setOnClickListener(noteMoodCallback(2))
-        view?.findViewById<ImageButton>(R.id.mood_neutral)?.setOnClickListener(noteMoodCallback(3))
-        view?.findViewById<ImageButton>(R.id.mood_good)?.setOnClickListener(noteMoodCallback(4))
-        view?.findViewById<ImageButton>(R.id.mood_very_good)?.setOnClickListener(noteMoodCallback(5))
     }
 
 }

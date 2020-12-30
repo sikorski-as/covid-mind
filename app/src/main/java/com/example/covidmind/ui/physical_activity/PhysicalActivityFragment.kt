@@ -38,7 +38,7 @@ class PhysicalActivityFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PhysicalActivityViewModel::class.java)
-        viewModel.steps.observe(this, Observer { newValue ->
+        viewModel.steps.observe(viewLifecycleOwner, Observer { newValue ->
             refreshSteps(newValue)
         })
         refreshSteps(null)
@@ -90,7 +90,7 @@ class PhysicalActivityFragment : Fragment() {
             return
         }
 
-        Fitness.getHistoryClient(this.activity!!, account)
+        Fitness.getHistoryClient(this.requireActivity(), account)
             .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
             .addOnSuccessListener { result ->
                 val totalSteps =
@@ -128,7 +128,7 @@ private fun PhysicalActivityFragment.hasPermissions(account: GoogleSignInAccount
 
 private fun PhysicalActivityFragment.startSignInIntent() {
     val signInClient: GoogleSignInClient = GoogleSignIn.getClient(
-        this.activity!!,
+        this.requireActivity(),
         GoogleSignInOptions.DEFAULT_SIGN_IN
     )
     val intent = signInClient.signInIntent

@@ -51,4 +51,8 @@
     <string name="moodnotes_date_placeholder">unknown date</string>
     <string name="moodnotes_removed_toast">Mood note removed!</string>
     <string name="moodnotes_no_data">There isn\'t any mood note to show.</string>
+
+    <!-- reminder notification -->
+    <string name="notification_reminder_title">Mood noting reminder</string>
+    <string name="notification_reminder_text">Remember to note your mood to keep track of your mental health!</string>
 </resources>
