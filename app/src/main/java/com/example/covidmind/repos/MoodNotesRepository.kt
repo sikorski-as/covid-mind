@@ -11,4 +11,8 @@ class MoodNotesRepository @Inject constructor(localDatabase: LocalDatabase) {
     suspend fun insertOrReplace(moodNote: MoodNote) {
         moodNotesDao.insertOrReplaceOnDateConflict(moodNote)
     }
+
+    suspend fun deleteMoodNote(moodNote: MoodNote){
+        moodNotesDao.delete(moodNote)
+    }
 }

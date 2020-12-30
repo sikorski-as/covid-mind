@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.covidmind.R
@@ -26,6 +27,7 @@ class MoodNotingFragment : Fragment() {
     private fun noteMoodCallback(value: Int): View.OnClickListener {
         return View.OnClickListener{
             viewModel.insertOrReplace(MoodNote(value))
+            Toast.makeText(context, R.string.moodnoting_noted_toast, Toast.LENGTH_SHORT).show()
         }
     }
 

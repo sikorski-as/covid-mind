@@ -32,6 +32,9 @@
     <string name="mood_hint">Click on emoticon to note your current mood.</string>
     <string name="mood_visit_activities">Visit activities tab to cheer yourself up!</string>
 
+    <!--  mood noting widget  -->
+    <string name="moodnoting_noted_toast">Mood noted!</string>
+
     <!--  physical activity widget  -->
     <string name="steps_label">Steps</string>
     <string name="steps_counter_placeholder">\?\?</string>
@@ -45,4 +48,5 @@
 
     <!-- moodnotes list fragment -->
     <string name="moodnotes_date_placeholder">unknown date</string>
+    <string name="moodnotes_removed_toast">Mood note removed!</string>
 </resources>
