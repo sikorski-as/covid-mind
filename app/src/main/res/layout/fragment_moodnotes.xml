@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_default"
+    android:orientation="vertical"
     tools:context=".ui.moodnotes.MoodNotesFragment">
+
+    <TextView
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_moodnotes"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_heading2" />
+
+    <TextView
+        android:id="@+id/tab_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:text="@string/subtitle_moodnotes"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/text_size_heading5" />
 
     <TextView
         android:id="@+id/moodnotes_no_data_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:padding="@dimen/padding_default"
         android:text="@string/moodnotes_no_data"
         android:textAlignment="center"
-        android:padding="@dimen/default_padding"
-        android:layout_margin="@dimen/default_margin"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moodnotes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/moodnote_item"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:listitem="@layout/moodnote_item" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
+

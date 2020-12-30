@@ -17,10 +17,10 @@
 
     <!--  -->
     <style name="ListBlock">
-        <item name="android:layout_marginTop">@dimen/default_margin</item>
-        <item name="android:layout_marginLeft">@dimen/default_margin</item>
-        <item name="android:layout_marginRight">@dimen/default_margin</item>
-        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:layout_marginTop">@dimen/margin_default</item>
+        <item name="android:layout_marginLeft">@dimen/margin_default</item>
+        <item name="android:layout_marginRight">@dimen/margin_default</item>
+        <item name="android:padding">@dimen/padding_default</item>
     </style>
 
     <!--  -->

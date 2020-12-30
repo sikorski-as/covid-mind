@@ -2,10 +2,18 @@
     <!--  main  -->
     <string name="app_name">Pandemic Mind</string>
     <string name="app_subtitle">To make yourself better during pandemic.</string>
+
     <string name="title_home">Status</string>
+    <string name="subtitle_home">Status</string>
+
     <string name="title_moodnotes">Mood notes</string>
+    <string name="subtitle_moodnotes">List of your mood notes.</string>
+
     <string name="title_activities">Activities</string>
+    <string name="subtitle_activities">Explore stimulating activities to boost your mood!</string>
+
     <string name="title_settings">Settings</string>
+    <string name="subtitle_settings">Customize settings to fit your needs.</string>
 
     <!--  mood widget  -->
     <string name="mood_title_label">Mood</string>
@@ -47,10 +55,13 @@
     <string name="description_steps_icon">running man icon</string>
     <string name="permission_not_granted">Permission not granted to use this feature</string>
 
-    <!-- moodnotes list fragment -->
+    <!-- moodnotes tab -->
     <string name="moodnotes_date_placeholder">unknown date</string>
     <string name="moodnotes_removed_toast">Mood note removed!</string>
-    <string name="moodnotes_no_data">There isn\'t any mood note to show.</string>
+    <string name="moodnotes_no_data">No mood notes to show.</string>
+
+    <!--  activities tab  -->
+    <string name="activities_no_data">No activities to show.</string>
 
     <!-- reminder notification -->
     <string name="notification_reminder_title">Mood noting reminder</string>
