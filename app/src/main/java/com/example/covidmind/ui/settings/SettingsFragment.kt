@@ -16,6 +16,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.covidmind.R
 import com.example.covidmind.alarms.ReminderNotificationAlarmReceiver
+import com.example.covidmind.alarms.disableReminderNotificationsAlarm
+import com.example.covidmind.alarms.enableReminderNotificationsAlarmAt
 import com.example.covidmind.notifications.REMINDER_NOTIFICATION_ID
 import com.example.covidmind.notifications.sendReminderNotification
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,7 +84,7 @@ class SettingsFragment : Fragment() {
                         set(Calendar.SECOND, 0)
                     }
 
-                    enableNotificationsAt(time)
+                    requireContext().enableReminderNotificationsAlarmAt(time)
                     setReminderNotificationTime(time)
                     isReminderNotificationSet = true
                 }
@@ -91,31 +93,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun onDisableButtonClick() {
-        disableNotifications()
+        requireContext().disableReminderNotificationsAlarm()
         viewModel.preferences.isReminderNotificationSet = false
-    }
-
-    private fun enableNotificationsAt(notificationTime: Calendar) {
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(activity, ReminderNotificationAlarmReceiver::class.java)
-        val pendingIntent =
-            PendingIntent.getBroadcast(activity, REMINDER_NOTIFICATION_ID, intent, 0)
-
-        val startUpTime = notificationTime.timeInMillis
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            startUpTime,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-    }
-
-    private fun disableNotifications() {
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(activity, ReminderNotificationAlarmReceiver::class.java)
-        val pendingIntent =
-            PendingIntent.getBroadcast(activity, REMINDER_NOTIFICATION_ID, intent, 0)
-
-        alarmManager.cancel(pendingIntent)
     }
 }
