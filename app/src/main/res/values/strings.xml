@@ -63,6 +63,12 @@
     <!--  activities tab  -->
     <string name="activities_no_data">No activities to show.</string>
 
+    <!--  settings tab  -->
+    <string name="settings_setup_reminder_label">Notifications reminding about noting mood</string>
+    <string name="settings_setup_reminder_time_label">not set</string>
+    <string name="settings_enable_button_label">Enable</string>
+    <string name="settings_disable_button_label">Disable notifications at %1$s</string>
+
     <!-- reminder notification -->
     <string name="notification_reminder_title">Mood noting reminder</string>
     <string name="notification_reminder_text">Remember to note your mood to keep track of your mental health!</string>

@@ -49,7 +49,7 @@ class MoodNoteAdapter(private val itemDeletedCallback: (MoodNote) -> Unit) :
             else -> R.drawable.ic_sentiment_very_satisfied_black_24dp
         }
         holder.moodImage.setImageResource(imageResource)
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+        val df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
         val tf = DateFormat.getTimeInstance(DateFormat.MEDIUM, Locale.getDefault())
         holder.moodDate.text =
             "${df.format(currentMoodNote.timestamp)}, ${tf.format(currentMoodNote.timestamp)}"

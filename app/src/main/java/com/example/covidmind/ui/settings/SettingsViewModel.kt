@@ -1,13 +1,9 @@
 package com.example.covidmind.ui.settings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import com.example.covidmind.repos.PreferencesRepository
 
-class SettingsViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
-}
+class SettingsViewModel @ViewModelInject constructor(
+    val preferences: PreferencesRepository
+) : ViewModel()

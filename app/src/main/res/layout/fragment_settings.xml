@@ -21,4 +21,28 @@
         android:text="@string/subtitle_settings"
         android:textColor="@color/colorHint"
         android:textSize="@dimen/text_size_heading5" />
+
+    <TextView
+        android:id="@+id/setup_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_setup_reminder_label"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/text_size_heading5" />
+
+    <Button
+        android:id="@+id/enable_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_enable_button_label"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/disable_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_disable_button_label"
+        style="?android:attr/borderlessButtonStyle"
+        android:visibility="gone"/>
+
 </LinearLayout>
