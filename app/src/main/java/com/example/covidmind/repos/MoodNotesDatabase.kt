@@ -65,9 +65,3 @@ class DateConverter {
         return date?.time?.toLong()
     }
 }
-
-@Database(entities = [MoodNote::class], version = 1)
-@TypeConverters(DateConverter::class)
-abstract class LocalDatabase : RoomDatabase() {
-    abstract fun moodNotesDao(): MoodNoteDao
-}
