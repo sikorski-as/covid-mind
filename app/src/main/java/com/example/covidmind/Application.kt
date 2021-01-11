@@ -3,14 +3,19 @@ package com.example.covidmind
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.example.covidmind.api.CovidMindService
 import com.example.covidmind.repos.LocalDatabase
 import com.example.covidmind.repos.MoodNotesRepository
+import com.example.covidmind.repos.StimulatingActivitiesRepository
+import com.hadiyarajesh.flower.calladpater.FlowCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 import javax.inject.Singleton
 
 @HiltAndroidApp
@@ -32,4 +37,21 @@ object ProductionModules {
     fun provideMoodNotesRepository(
         localDatabase: LocalDatabase
     ): MoodNotesRepository = MoodNotesRepository(localDatabase)
+
+    @Provides
+    fun provideStimulatingActivitiesRepository(
+        localDatabase: LocalDatabase,
+        covidMindService: CovidMindService
+    ): StimulatingActivitiesRepository =
+        StimulatingActivitiesRepository(localDatabase, covidMindService)
+
+    @Provides
+    fun provideCovidMindService(): CovidMindService {
+        return Retrofit.Builder()
+            .baseUrl("https://covid-mind.herokuapp.com/api/v1/")
+            .addConverterFactory(JacksonConverterFactory.create())
+            .addCallAdapterFactory(FlowCallAdapterFactory())
+            .build()
+            .create(CovidMindService::class.java)
+    }
 }

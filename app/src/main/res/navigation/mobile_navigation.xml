@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_activities"
-        android:name="com.example.covidmind.ui.dashboard.ActivitiesFragment"
+        android:name="com.example.covidmind.ui.activities.ActivitiesFragment"
         android:label="@string/title_activities"
         tools:layout="@layout/fragment_activities" />
 

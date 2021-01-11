@@ -62,6 +62,7 @@
 
     <!--  activities tab  -->
     <string name="activities_no_data">No activities to show.</string>
+    <string name="activities_fetch">Refresh</string>
 
     <!--  settings tab  -->
     <string name="settings_setup_reminder_label">Notifications reminding about noting mood</string>

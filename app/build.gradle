@@ -56,9 +56,13 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
-    // Retrofit
+    // Retrofit & Jackson
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-jackson:2.2.0'
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.12+"
+
+    // Easy API consuming and caching into Room database
+    implementation 'com.github.hadiyarajesh:flower:1.0.0'
 
     // Google Fit
     implementation 'com.google.android.gms:play-services-fitness:20.0.0'
