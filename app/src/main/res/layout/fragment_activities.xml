@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/margin_default"
     android:orientation="vertical">
 
@@ -23,19 +24,27 @@
         android:textSize="@dimen/text_size_heading5" />
 
     <Button
-        android:id="@+id/refresh_button"
+        android:id="@+id/stimulating_activities_refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/activities_fetch"/>
+        android:layout_gravity="center"
+        android:text="@string/stimulating_activities_fetch"/>
 
     <TextView
-        android:id="@+id/moodnotes_no_data_label"
+        android:id="@+id/stimulating_activities_no_data_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
         android:padding="@dimen/padding_default"
-        android:text="@string/activities_no_data"
+        android:text="@string/stimulating_activities_no_data"
         android:textAlignment="center"
         android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stimulating_activities_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:listitem="@layout/stimulating_activity_item" />
 
 </LinearLayout>

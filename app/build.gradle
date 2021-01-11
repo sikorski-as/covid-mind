@@ -64,6 +64,9 @@ dependencies {
     // Easy API consuming and caching into Room database
     implementation 'com.github.hadiyarajesh:flower:1.0.0'
 
+    // TagView
+    implementation 'co.lujun:androidtagview:1.1.7'
+
     // Google Fit
     implementation 'com.google.android.gms:play-services-fitness:20.0.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'

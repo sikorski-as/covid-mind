@@ -30,10 +30,12 @@ class StimulatingActivitiesRepository @Inject constructor(
                 covidMindService.getLatestStimulatingActivities()
             },
             processRemoteResponse = {
-                response -> Log.i("[CM] body", response.body.toString())
+                // response -> Log.i("[CM] body", response.body.toString())
             },
             saveRemoteData = { stimulatingActivityDao.update(it.toModel().toEntity()) },
-            onFetchFailed = { errorBody, statusCode ->  Log.i("[CM]", "$statusCode: $errorBody") }
+            onFetchFailed = { errorBody, statusCode ->
+                // Log.i("[CM]", "$statusCode: $errorBody")
+            }
         ).flowOn(Dispatchers.IO)
     }
 }

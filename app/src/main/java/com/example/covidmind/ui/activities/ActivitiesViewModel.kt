@@ -1,22 +1,27 @@
 package com.example.covidmind.ui.activities
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
+import com.example.covidmind.model.StimulatingActivity
 import com.example.covidmind.repos.MoodNotesRepository
 import com.example.covidmind.repos.StimulatingActivitiesRepository
+import com.hadiyarajesh.flower.Resource
 
 class ActivitiesViewModel @ViewModelInject constructor(
     private val stimulatingActivitiesRepository: StimulatingActivitiesRepository
 ) : ViewModel() {
 
-    val stimulatingActivities =
+    private var _stimulatingActivities =
         stimulatingActivitiesRepository.getLatestStimulatingActivities(forceServerPull = false)
             .asLiveData()
 
+    val stimulatingActivities = Transformations.switchMap(_stimulatingActivities) {
+        return@switchMap MutableLiveData<Resource<List<StimulatingActivity>>>(_stimulatingActivities.value)
+    }
+
     fun forceRefreshStimulatingActivities() {
-        stimulatingActivitiesRepository.getLatestStimulatingActivities(forceServerPull = true)
+        _stimulatingActivities =
+            stimulatingActivitiesRepository.getLatestStimulatingActivities(forceServerPull = true)
+                .asLiveData()
     }
 }

@@ -61,8 +61,12 @@
     <string name="moodnotes_no_data">No mood notes to show.</string>
 
     <!--  activities tab  -->
-    <string name="activities_no_data">No activities to show.</string>
-    <string name="activities_fetch">Refresh</string>
+    <string name="stimulating_activities_no_data">No activities to show.</string>
+    <string name="stimulating_activities_fetch">Refresh</string>
+    <string name="stimulating_activities_item_title_placeholder">No title</string>
+    <string name="stimulating_activities_item_description_placeholder">No description provided.</string>
+    <string name="stimulating_activities_item_see_link">See more</string>
+    <string name="stimulating_activities_failed_to_fetch">Could not fetch activities!</string>
 
     <!--  settings tab  -->
     <string name="settings_setup_reminder_label">Notifications reminding about noting mood</string>
