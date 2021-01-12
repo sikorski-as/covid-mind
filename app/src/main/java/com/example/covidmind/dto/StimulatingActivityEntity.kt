@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.covidmind.model.StimulatingActivity
 import com.example.covidmind.model.StimulatingActivityCategory
+import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 
@@ -13,7 +14,7 @@ class StimulatingActivityEntity(
     val title: String,
     val description: String,
     val date: String,
-    val categories: String,
+    val categories: List<String>,
     val link: String
 )
 
@@ -22,7 +23,7 @@ fun StimulatingActivity.toEntity() = StimulatingActivityEntity(
     title = title,
     description = description,
     date = date,
-    categories = jacksonObjectMapper().writeValueAsString(categories),
+    categories = categories,
     link = link
 )
 
@@ -31,11 +32,7 @@ fun StimulatingActivityEntity.toModel() = StimulatingActivity(
     title = title,
     description = description,
     date = date,
-    categories = try {
-        jacksonObjectMapper().readValue<List<StimulatingActivityCategory>>(categories)
-    } catch (_: Exception) {
-        emptyList<StimulatingActivityCategory>()
-    },
+    categories = categories,
     link = link
 )
 

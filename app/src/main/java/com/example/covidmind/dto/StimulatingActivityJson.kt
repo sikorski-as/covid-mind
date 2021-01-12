@@ -7,7 +7,7 @@ data class StimulatingActivityJson(
     val title: String = "",
     val description: String = "",
     val date: String = "",
-    val categories: List<StimulatingActivityCategoryJson> = mutableListOf(),
+    val categories: List<String> = mutableListOf(),
     val link: String = ""
 )
 
@@ -16,7 +16,7 @@ fun StimulatingActivity.toJson() = StimulatingActivityJson(
     title = title,
     description = description,
     date = date,
-    categories = categories.toJson(),
+    categories = categories,
     link = link
 )
 
@@ -25,7 +25,7 @@ fun StimulatingActivityJson.toModel() = StimulatingActivity(
     title = title,
     description = description,
     date = date,
-    categories = categories.toModel(),
+    categories = categories,
     link = link
 )
 

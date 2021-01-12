@@ -1,4 +1,4 @@
-package com.example.covidmind.ui.activities
+package com.example.covidmind.ui.stimulating_activities
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

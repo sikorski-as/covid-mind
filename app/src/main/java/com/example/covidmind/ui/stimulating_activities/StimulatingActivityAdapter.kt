@@ -1,4 +1,4 @@
-package com.example.covidmind.ui.activities
+package com.example.covidmind.ui.stimulating_activities
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +40,7 @@ class StimulatingActivityAdapter(private val seeMoreButtonClicked: (StimulatingA
         val currentStimulatingActivity = stimulatingActivities[position]
         holder.title.text = currentStimulatingActivity.title
         holder.description.text = currentStimulatingActivity.description
-        holder.tags.tags = currentStimulatingActivity.categories.map { it.name }
+        holder.tags.tags = currentStimulatingActivity.categories
         holder.seeMoreButton.setOnClickListener {
             seeMoreButtonClicked(currentStimulatingActivity)
         }
