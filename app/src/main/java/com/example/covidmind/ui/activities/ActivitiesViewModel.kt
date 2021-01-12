@@ -1,27 +1,32 @@
 package com.example.covidmind.ui.activities
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.covidmind.model.StimulatingActivity
-import com.example.covidmind.repos.MoodNotesRepository
 import com.example.covidmind.repos.StimulatingActivitiesRepository
-import com.hadiyarajesh.flower.Resource
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class ActivitiesViewModel @ViewModelInject constructor(
     private val stimulatingActivitiesRepository: StimulatingActivitiesRepository
 ) : ViewModel() {
-
-    private var _stimulatingActivities =
-        stimulatingActivitiesRepository.getLatestStimulatingActivities(forceServerPull = false)
-            .asLiveData()
-
-    val stimulatingActivities = Transformations.switchMap(_stimulatingActivities) {
-        return@switchMap MutableLiveData<Resource<List<StimulatingActivity>>>(_stimulatingActivities.value)
-    }
+    val stimulatingActivities: LiveData<List<StimulatingActivity>> =
+        stimulatingActivitiesRepository.stimulatingActivities
 
     fun forceRefreshStimulatingActivities() {
-        _stimulatingActivities =
-            stimulatingActivitiesRepository.getLatestStimulatingActivities(forceServerPull = true)
-                .asLiveData()
+        viewModelScope.launch {
+            try {
+                stimulatingActivitiesRepository.refreshStimulatingActivities()
+//                _eventNetworkError.value = false
+//                _isNetworkErrorShown.value = false
+
+            } catch (networkError: IOException) {
+//                // Show a Toast error message and hide the progress bar.
+//                if(playlist.value.isNullOrEmpty())
+//                    _eventNetworkError.value = true
+            }
+        }
     }
 }

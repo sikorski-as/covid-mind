@@ -7,7 +7,6 @@ import com.example.covidmind.api.CovidMindService
 import com.example.covidmind.repos.LocalDatabase
 import com.example.covidmind.repos.MoodNotesRepository
 import com.example.covidmind.repos.StimulatingActivitiesRepository
-import com.hadiyarajesh.flower.calladpater.FlowCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +49,6 @@ object ProductionModules {
         return Retrofit.Builder()
             .baseUrl("https://covid-mind.herokuapp.com/api/v1/")
             .addConverterFactory(JacksonConverterFactory.create())
-            .addCallAdapterFactory(FlowCallAdapterFactory())
             .build()
             .create(CovidMindService::class.java)
     }

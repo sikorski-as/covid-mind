@@ -1,16 +1,13 @@
 package com.example.covidmind.repos
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.covidmind.api.CovidMindService
-import com.example.covidmind.dto.*
+import com.example.covidmind.dto.toEntity
+import com.example.covidmind.dto.toModel
 import com.example.covidmind.model.StimulatingActivity
-import com.hadiyarajesh.flower.Resource
-import com.hadiyarajesh.flower.networkBoundResource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class StimulatingActivitiesRepository @Inject constructor(
@@ -20,22 +17,19 @@ class StimulatingActivitiesRepository @Inject constructor(
     private var stimulatingActivityDao: StimulatingActivitiesDao =
         localDatabase.stimulatingActivitiesDao()
 
-    fun getLatestStimulatingActivities(forceServerPull: Boolean = true)
-            : Flow<Resource<List<StimulatingActivity>>> {
-        return networkBoundResource(
-            fetchFromLocal = { stimulatingActivityDao.getLatest().map { it.toModel() } },
-            shouldFetchFromRemote = { it == null || forceServerPull },
-            fetchFromRemote = {
-                Log.i("[CM] fetching...", "")
-                covidMindService.getLatestStimulatingActivities()
-            },
-            processRemoteResponse = {
-                // response -> Log.i("[CM] body", response.body.toString())
-            },
-            saveRemoteData = { stimulatingActivityDao.update(it.toModel().toEntity()) },
-            onFetchFailed = { errorBody, statusCode ->
-                // Log.i("[CM]", "$statusCode: $errorBody")
-            }
-        ).flowOn(Dispatchers.IO)
+    val stimulatingActivities: LiveData<List<StimulatingActivity>> =
+        Transformations.map(stimulatingActivityDao.getLatest()) {
+            it.toModel()
+        }
+
+//    private var _stimulatingActivitiesLoading = MutableLiveData<Boolean>(false)
+//    val stimulatingActivitiesLoading = _stimulatingActivitiesLoading
+
+    suspend fun refreshStimulatingActivities() {
+        withContext(Dispatchers.IO) {
+//            _stimulatingActivitiesLoading.value = true
+            val newStimulatingActivities = covidMindService.getLatestStimulatingActivities()
+            stimulatingActivityDao.update(newStimulatingActivities.toModel().toEntity())
+        }
     }
 }

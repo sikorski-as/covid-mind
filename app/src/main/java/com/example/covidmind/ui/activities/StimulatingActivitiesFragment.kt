@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covidmind.R
-import com.example.covidmind.ui.moodnotes.MoodNoteAdapter
-import com.hadiyarajesh.flower.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +33,6 @@ class StimulatingActivitiesFragment : Fragment() {
         noActivitiesLabel = root.findViewById(R.id.stimulating_activities_no_data_label)
         refreshButton.setOnClickListener {
             viewModel.forceRefreshStimulatingActivities()
-            refreshButton.isEnabled = false
         }
         return root
     }
@@ -53,34 +49,18 @@ class StimulatingActivitiesFragment : Fragment() {
         viewModel.stimulatingActivities.observe(viewLifecycleOwner,
             Observer { newStimulatingActivities ->
                 Log.i("[CM]", newStimulatingActivities.toString())
-                when (newStimulatingActivities.status) {
-                    Resource.Status.SUCCESS -> {
-                        val newData = newStimulatingActivities.data!!.toMutableList()
-                        stimulatingActivityAdapter.stimulatingActivities = newData
-                        if(newData.isNotEmpty()){
-                            Log.i("CM", "dataset not empty")
-                            recyclerView.visibility = View.VISIBLE
-                            noActivitiesLabel.visibility = View.GONE
-                        }
-                        else{
-                            Log.i("CM", "dataset empty")
-                            recyclerView.visibility = View.GONE
-                            noActivitiesLabel.visibility = View.VISIBLE
-                        }
-                        refreshButton.isEnabled = true
-                    }
-                    Resource.Status.LOADING -> {
-                        refreshButton.isEnabled = false
-                    }
-                    Resource.Status.ERROR -> {
-                        refreshButton.isEnabled = true
-                        Toast.makeText(
-                            requireContext(),
-                            resources.getText(R.string.stimulating_activities_failed_to_fetch),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                val newData = newStimulatingActivities.toMutableList()
+                stimulatingActivityAdapter.stimulatingActivities = newData
+                if (newData.isNotEmpty()) {
+                    Log.i("CM", "dataset not empty")
+                    recyclerView.visibility = View.VISIBLE
+                    noActivitiesLabel.visibility = View.GONE
+                } else {
+                    Log.i("CM", "dataset empty")
+                    recyclerView.visibility = View.GONE
+                    noActivitiesLabel.visibility = View.VISIBLE
                 }
+                refreshButton.isEnabled = true
             })
     }
 }
