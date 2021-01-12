@@ -18,7 +18,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 import javax.inject.Singleton
 
 @HiltAndroidApp
-class CovidMindApplication : Application() {}
+class CovidMindApplication : Application()
 
 @Module
 @InstallIn(ApplicationComponent::class)
