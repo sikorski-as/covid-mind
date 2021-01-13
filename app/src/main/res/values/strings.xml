@@ -46,8 +46,10 @@
 
     <!--  physical activity widget  -->
     <string name="steps_label">Steps</string>
-    <string name="steps_counter_placeholder">\?\?</string>
-    <string name="steps_button_connect">+ connect to Google Fit</string>
+    <string name="steps_counter_placeholder">--</string>
+    <string name="steps_button_connect">Connect to Google Fit</string>
+    <string name="connected_to_google_fit">Connected to Google Fit successfully!</string>
+    <string name="not_connected_to_google_fit">Failed to connect to Google Fit!</string>
     <string name="steps_button_connected">powered by Google Fit</string>
     <string name="failed_to_fetch_steps">Failed to fetch steps</string>
     <string name="google_account_not_chosen">Google account is required</string>

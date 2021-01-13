@@ -32,8 +32,7 @@ class PreferencesRepository @Inject constructor(@ApplicationContext context: Con
         }
 
     private val _isReminderNotificationSetObservable = MutableLiveData<Boolean>()
-    val isReminderNotificationSetObservable: LiveData<Boolean>
-       get() =  _isReminderNotificationSetObservable
+    val isReminderNotificationSetObservable: LiveData<Boolean> = _isReminderNotificationSetObservable
 
     fun setReminderNotificationTime(time: Calendar) {
         preferences.edit()
@@ -43,4 +42,15 @@ class PreferencesRepository @Inject constructor(@ApplicationContext context: Con
             .putInt("reminderNotificationMinute", time.get(Calendar.MINUTE))
             .apply()
     }
+
+    private val _isConnectedToGoogleFitObservable = MutableLiveData<Boolean>()
+    val isConnectedToGoogleFitObservable: LiveData<Boolean> = _isConnectedToGoogleFitObservable
+
+    var isConnectedToGoogleFit: Boolean
+        get() = preferences.getBoolean("isConnectedToGoogleFit", false)
+        set(value) {
+            preferences.edit().putBoolean("isConnectedToGoogleFit", value).apply()
+            _isConnectedToGoogleFitObservable.postValue(value)
+        }
+
 }
