@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_default"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setup_other_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginRight="@dimen/margin_default"
+            android:text="@string/settings_other_label"
+            android:textColor="@color/colorHint"
+            android:textSize="@dimen/text_size_heading4" />
+
+        <TextView
+            android:id="@+id/setup_other_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_default"
+            android:text="@string/settings_other_sublabel"
+            android:textColor="@color/colorHint"
+            android:textSize="@dimen/text_size_heading5" />
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginRight="@dimen/margin_default"
+            app:srcCompat="@drawable/ic_brain" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_default"
+            android:gravity="center"
+            android:text="@string/settings_other_logo_source"
+            android:textColor="@color/colorHint"
+            android:textSize="@dimen/text_size_heading5" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:focusable="true"
+
+            android:gravity="center"
+            android:text="@string/settings_other_logo_source_details"
+            android:textColor="@color/colorHint"
+            android:textSize="@dimen/text_size_heading6" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/enable_button"-->
+        <!--            style="?android:attr/borderlessButtonStyle"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="@dimen/margin_small"-->
+        <!--            android:text="@string/settings_enable_button_label" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/disable_button"-->
+        <!--            style="?android:attr/borderlessButtonStyle"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="@dimen/margin_small"-->
+        <!--            android:text="@string/settings_disable_button_label"-->
+        <!--            android:visibility="gone" />-->
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

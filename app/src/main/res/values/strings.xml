@@ -12,8 +12,8 @@
     <string name="title_activities">Activities</string>
     <string name="subtitle_activities">Explore stimulating activities to boost your mood!</string>
 
-    <string name="title_settings">Settings</string>
-    <string name="subtitle_settings">Customize settings to fit your needs.</string>
+    <string name="title_settings">Preferences</string>
+    <string name="subtitle_settings">Customize preferences to fit your needs.</string>
 
     <!--  mood widget  -->
     <string name="mood_title_label">Mood</string>
@@ -73,10 +73,17 @@
     <string name="stimulating_activities_fetch_successful">Done!</string>
 
     <!--  settings tab  -->
-    <string name="settings_setup_reminder_label">Notifications reminding about noting mood</string>
+    <string name="settings_setup_reminder_label">Notifications</string>
+    <string name="settings_setup_reminder_sublabel">Setup daily notifications reminding about noting mood at least once a day</string>
     <string name="settings_setup_reminder_time_label">not set</string>
     <string name="settings_enable_button_label">Enable</string>
     <string name="settings_disable_button_label">Disable notifications at %1$s</string>
+
+    <string name="settings_other_label">Other</string>
+    <string name="settings_other_sublabel">Other information about the application</string>
+    <string name="settings_other_logo_source">Application logo</string>
+    <string name="settings_other_logo_source_details">Logo made by <a href="https://www.smashicons.com">https://www.smashicons.com</a></string>
+
 
     <!-- reminder notification -->
     <string name="notification_reminder_title">Mood noting reminder</string>
