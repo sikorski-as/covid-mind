@@ -3,7 +3,7 @@ package com.example.covidmind.ui.physical_activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +18,7 @@ import com.example.covidmind.api.Google
 import com.example.covidmind.repos.GoogleFitRepository
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class PhysicalActivityFragment : Fragment() {
 
@@ -27,6 +28,27 @@ class PhysicalActivityFragment : Fragment() {
     }
 
     private val viewModel: PhysicalActivityViewModel by viewModels()
+
+    private val handler: Handler = Handler()
+    private lateinit var runnable: Runnable
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshStepsIfConnected()
+        val refreshTime: Long = 60_000 // 60 seconds
+        handler.postDelayed(
+            Runnable {
+                viewModel.refreshStepsIfConnected()
+                handler.postDelayed(runnable, refreshTime)
+            }.also { runnable = it },
+            refreshTime
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,11 +78,6 @@ class PhysicalActivityFragment : Fragment() {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.refreshStepsIfConnected()
-    }
-
     private fun tryToConnect() {
         val status = viewModel.tryToConnect()
         when (status) {
@@ -78,11 +95,6 @@ class PhysicalActivityFragment : Fragment() {
                 ).show()
             }
             GoogleFitRepository.Status.ALREADY_ACTIVE -> {
-                Toast.makeText(
-                    requireContext(),
-                    "ALREADY ACTIVE",
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
     }
@@ -96,7 +108,6 @@ class PhysicalActivityFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.i("CM", "requestCode = $requestCode, resultCode: $resultCode")
         if (requestCode == GOOGLE_FIT_STEPS_PERMISSIONS_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 tryToConnect()
@@ -112,90 +123,4 @@ class PhysicalActivityFragment : Fragment() {
             }
         }
     }
-
-//    private fun tryToAccessStepsFromGoogleFit() {
-//        val account = getAccount()
-//        if (account == null) {
-//            startSignInIntent()
-//            return
-//        }
-//
-//        if (hasPermissions(account)) {
-//            accessStepsFromGoogleFit()
-//        } else {
-//            requestGoogleFitPermissions(account)
-//        }
-//    }
-
-//    private fun accessStepsFromGoogleFit() {
-//        val account = getAccount()
-//        if (account == null) {
-//            Toast.makeText(context, R.string.failed_to_fetch_steps, Toast.LENGTH_LONG).show()
-//            return
-//        }
-//
-//        Fitness.getHistoryClient(this.requireActivity(), account)
-//            .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
-//            .addOnSuccessListener { result ->
-//                val totalSteps =
-//                    if (result.isEmpty) 0
-//                    else result.dataPoints[0].getValue(Field.FIELD_STEPS).asInt()
-//                viewModel.steps.value = totalSteps
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(context, R.string.failed_to_fetch_steps, Toast.LENGTH_LONG).show()
-//            }
-//    }
-
-//    private fun refreshSteps(value: Int?) {
-//        val stepsText = view?.findViewById<TextView>(R.id.steps_counter)
-//        val stepsButton = view?.findViewById<AppCompatButton>(R.id.steps_button)
-//
-//        if (value == null) {
-//            stepsText?.text = resources.getString(R.string.steps_counter_placeholder)
-//            stepsButton?.text = resources.getString(R.string.steps_button_connect)
-//            stepsButton?.setOnClickListener {
-//                tryToAccessStepsFromGoogleFit()
-//            }
-//        } else {
-//            stepsText?.text = value.toString()
-//            stepsButton?.text = resources.getString(R.string.steps_button_connected)
-//            stepsButton?.setOnClickListener {}
-//        }
-//    }
 }
-
-
-//private fun PhysicalActivityFragment.hasPermissions(account: GoogleSignInAccount): Boolean {
-//    return GoogleSignIn.hasPermissions(account, PhysicalActivityFragment.FITNESS_OPTIONS)
-//}
-
-//private fun PhysicalActivityFragment.startSignInIntent() {
-//    val signInClient: GoogleSignInClient = GoogleSignIn.getClient(
-//        this.requireActivity(),
-//        GoogleSignInOptions.DEFAULT_SIGN_IN
-//    )
-//    val intent = signInClient.signInIntent
-//    startActivityForResult(
-//        intent,
-//        PhysicalActivityFragment.GOOGLE_ACCOUNT_CHOSEN
-//    )
-//}
-
-//private fun PhysicalActivityFragment.getAccount(): GoogleSignInAccount? {
-//    val account = GoogleSignIn.getAccountForExtension(
-//        requireContext(),
-//        PhysicalActivityFragment.FITNESS_OPTIONS
-//    )
-//    return if (account.id.isNullOrEmpty()) null
-//    else account
-//}
-
-//private fun PhysicalActivityFragment.requestGoogleFitPermissions(account: GoogleSignInAccount?) {
-//    GoogleSignIn.requestPermissions(
-//        this,
-//        PhysicalActivityFragment.GOOGLE_FIT_STEPS_PERMISSIONS_REQUEST_CODE,
-//        account,
-//        PhysicalActivityFragment.FITNESS_OPTIONS
-//    )
-//}

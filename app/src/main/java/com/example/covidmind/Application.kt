@@ -4,9 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.covidmind.api.CovidMindService
-import com.example.covidmind.repos.LocalDatabase
-import com.example.covidmind.repos.MoodNotesRepository
-import com.example.covidmind.repos.StimulatingActivitiesRepository
+import com.example.covidmind.repos.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +21,11 @@ class CovidMindApplication : Application()
 @Module
 @InstallIn(ApplicationComponent::class)
 object ProductionModules {
+    @Provides
+    fun preferencesRepository(
+        @ApplicationContext context: Context
+    ): PreferencesRepository = PreferencesRepository(context)
+
     @Singleton
     @Provides
     fun provideLocalDatabase(@ApplicationContext appContext: Context): LocalDatabase {
@@ -36,6 +39,12 @@ object ProductionModules {
     fun provideMoodNotesRepository(
         localDatabase: LocalDatabase
     ): MoodNotesRepository = MoodNotesRepository(localDatabase)
+
+    @Provides
+    fun provideGoogleFitRepository(
+        @ApplicationContext context: Context,
+        preferencesRepository: PreferencesRepository
+    ): GoogleFitRepository = GoogleFitRepository(context, preferencesRepository)
 
     @Provides
     fun provideStimulatingActivitiesRepository(

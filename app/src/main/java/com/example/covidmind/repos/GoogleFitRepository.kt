@@ -1,17 +1,11 @@
 package com.example.covidmind.repos
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.covidmind.api.Google
 import com.example.covidmind.model.StepsData
-import com.example.covidmind.ui.physical_activity.PhysicalActivityFragment
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.fitness.Fitness
-import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -73,18 +67,16 @@ class GoogleFitRepository @Inject constructor(
             Fitness.getHistoryClient(context, account)
                 .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
                 .addOnSuccessListener { result ->
-                    Log.i("CM", "REFRESHED STEPS!")
                     val totalStepsToday =
                         if (result.isEmpty) 0
                         else result.dataPoints[0].getValue(Field.FIELD_STEPS).asInt()
-                    _stepsData.postValue(StepsData(connected = true, steps = totalStepsToday))
+                    if (_stepsData.value?.steps != totalStepsToday) {
+                        _stepsData.postValue(StepsData(connected = true, steps = totalStepsToday))
+                    }
                 }
-                .addOnFailureListener {
-                    Log.i("CM", "FAILEEED")
-                }
+                .addOnFailureListener {}
         } else {
             deactivateGoogleFit()
-            Log.i("CM", "DEACTIVATED GOOGLE FIT XD!")
         }
     }
 }
