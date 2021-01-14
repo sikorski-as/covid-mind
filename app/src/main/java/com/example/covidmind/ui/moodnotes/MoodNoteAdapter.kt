@@ -9,7 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covidmind.R
-import com.example.covidmind.repos.MoodNote
+import com.example.covidmind.dto.MoodNoteEntity
+import com.example.covidmind.model.MoodNote
 import java.text.DateFormat
 import java.util.*
 
@@ -42,11 +43,11 @@ class MoodNoteAdapter(private val itemDeletedCallback: (MoodNote) -> Unit) :
         val currentMoodNote = moodNotes[position]
         val moodValue = currentMoodNote.moodValue.toDouble()
         val imageResource = when {
-            moodValue <= 1.5 -> R.drawable.ic_sentiment_very_dissatisfied_black_24dp
-            moodValue in 1.5..2.5 -> R.drawable.ic_sentiment_dissatisfied_black_24dp
-            moodValue in 2.5..3.5 -> R.drawable.ic_sentiment_neutral_black_24dp
-            moodValue in 3.5..4.5 -> R.drawable.ic_sentiment_satisfied_black_24dp
-            else -> R.drawable.ic_sentiment_very_satisfied_black_24dp
+            moodValue <= 1.5 -> R.drawable.ic_mood_very_bad_24dp
+            moodValue in 1.5..2.5 -> R.drawable.ic_mood_bad_24dp
+            moodValue in 2.5..3.5 -> R.drawable.ic_mood_neutral_24dp
+            moodValue in 3.5..4.5 -> R.drawable.ic_mood_good_24dp
+            else -> R.drawable.ic_mood_very_good_24dp
         }
         holder.moodImage.setImageResource(imageResource)
         val df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())

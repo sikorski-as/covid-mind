@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="MoodStatus">
+        <attr name="image" format="reference" />
+        <attr name="description" format="string" />
+        <attr name="status" format="string" />
+    </declare-styleable>
+</resources>

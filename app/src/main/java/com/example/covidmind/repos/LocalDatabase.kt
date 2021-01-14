@@ -4,12 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.example.covidmind.dto.MoodNoteEntity
 import com.example.covidmind.dto.StimulatingActivityEntity
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.util.*
 
-@Database(entities = [MoodNote::class, StimulatingActivityEntity::class], version = 2)
+@Database(entities = [MoodNoteEntity::class, StimulatingActivityEntity::class], version = 2)
 @TypeConverters(LocalDatabaseTypeConverters::class)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun moodNotesDao(): MoodNoteDao
@@ -24,7 +25,7 @@ class LocalDatabaseTypeConverters {
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+        return date?.time
     }
 
     @TypeConverter

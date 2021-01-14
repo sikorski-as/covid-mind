@@ -9,7 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.covidmind.R
-import com.example.covidmind.repos.MoodNote
+import com.example.covidmind.dto.MoodNoteEntity
+import com.example.covidmind.model.MoodNote
 import dagger.hilt.android.AndroidEntryPoint
 
 

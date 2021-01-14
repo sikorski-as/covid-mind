@@ -2,24 +2,31 @@ package com.example.covidmind.ui.mood
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.covidmind.repos.MoodNote
+import com.example.covidmind.model.MoodNote
 import com.example.covidmind.repos.MoodNotesRepository
-import kotlinx.coroutines.launch
 
 class MoodViewModel @ViewModelInject constructor(
     private val moodNotesRepository: MoodNotesRepository
 ) : ViewModel() {
-    private val latestMoodNotes: LiveData<List<MoodNote>> = moodNotesRepository.getAllNotes()
-    val averageMood: LiveData<Double?> = Transformations.switchMap(latestMoodNotes) {
-        moodNotes ->
+    val shortAverageLengthInDays: Int = 3
+    val longAverageLengthInDays: Int = 7
+
+    private fun computeAverageMood(moodNotes: List<MoodNote>): Double? {
         val size = moodNotes.size
-        if(size == 0){
-            return@switchMap null
-        }
-        else{
+        return if (size == 0) {
+            null
+        } else {
             val values = moodNotes.map { it.moodValue }
-            val average = values.sum().toDouble() / size
-            return@switchMap MutableLiveData<Double?>(average)
+            values.sum().toDouble() / size
         }
     }
+
+    val shortAverage: LiveData<Double?> =
+        Transformations.switchMap(moodNotesRepository.getNotesFromLastNDays(shortAverageLengthInDays)) { newMoodNotes ->
+            return@switchMap MutableLiveData(computeAverageMood(newMoodNotes))
+        }
+    val longAverage =
+        Transformations.switchMap(moodNotesRepository.getNotesFromLastNDays(longAverageLengthInDays)) { newMoodNotes ->
+            return@switchMap MutableLiveData(computeAverageMood(newMoodNotes))
+        }
 }

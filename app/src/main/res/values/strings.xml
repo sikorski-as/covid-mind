@@ -20,6 +20,13 @@
     <string name="mood_prompt_text">How are you today?</string>
     <string name="mood_button">+ add mood note</string>
 
+    <string name="mood_average_short">Last 3 days</string>
+    <string name="mood_average_long">Last 7 days</string>
+    <plurals name="mood_average_label">
+        <item quantity="one">Last day</item>
+        <item quantity="other">Last %d days</item>
+    </plurals>
+
     <string name="mood_unknown_label">Unknown</string>
     <string name="mood_unknown_description">No mood notes</string>
 

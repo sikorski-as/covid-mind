@@ -19,22 +19,33 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_size_heading3" />
 
-    <ImageView
-        android:id="@+id/mood_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_sentiment_neutral_black_24dp" />
-
-    <TextView
-        android:id="@+id/mood_label"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mood_unknown_description"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_heading5"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- left -->
+        <com.example.covidmind.ui.views.MoodStatusView
+            android:id="@+id/left_mood_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:description="@string/mood_average_short"
+            app:image="@drawable/ic_mood_neutral_24dp"
+            app:status="@string/mood_unknown_description" />
+
+        <!-- right -->
+        <com.example.covidmind.ui.views.MoodStatusView
+            android:id="@+id/right_mood_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:description="@string/mood_average_long"
+            app:image="@drawable/ic_mood_neutral_24dp"
+            app:status="@string/mood_unknown_description" />
+
+    </LinearLayout>
 
     <fragment
         android:id="@+id/mood_noting_fragment"
